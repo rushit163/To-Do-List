@@ -2,15 +2,21 @@ import React, { useState } from 'react'
 
 const App = () => {
   const [data,setData] = useState({
-    task:'',date:'',time:''
+    id:0,task:'',date:'',time:''
   })
-  const [list , setList ] = useState([])
+  const [lists , setLists ] = useState([])
   const submitHandler = (e) =>{
     e.preventDefault();
-    setList({...list,data})
-    console.log(list)
+    setLists((lists)=>{
+      const updatedList = [...lists,data]
+      setData({task:'',date:'',time:''})
+      return updatedList
+    })
+    console.log(lists)
   }
-
+  const displayList = lists.map(list =>
+    <li key={list.id}>{list.task},{list.date},{list.time}</li>
+  )
   return (
     <div>
       <form onSubmit={submitHandler} className='form'>
@@ -22,7 +28,7 @@ const App = () => {
         <button type='Submit'>Submit</button>
       </form>
       <div id='Tasks'>
-        
+        <ul>{displayList}</ul>
       </div>
     </div>
   )
