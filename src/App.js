@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-
+import { v4 as uuidv4 } from 'uuid';
 const App = () => {
   const [data,setData] = useState({
-    id:0,task:'',date:'',time:''
+    task:'',date:'',time:''
   })
   const [lists , setLists ] = useState([])
   const submitHandler = (e) =>{
@@ -12,10 +12,9 @@ const App = () => {
       setData({task:'',date:'',time:''})
       return updatedList
     })
-    console.log(lists)
   }
   const displayList = lists.map(list =>
-    <li key={list.id}>{list.task},{list.date},{list.time}</li>
+    <li key={uuidv4()}>{list.task},{list.date},{list.time}</li>
   )
   return (
     <div>
