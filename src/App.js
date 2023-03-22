@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
+import EditTodo from './component/editTodo';
 import Todo from './component/Todo';
 
 const App = () => {
   const [data,setData] = useState({
-    task:'',date:'',time:'',id:0
+    task:'',date:'',time:'',id:0,completed:false,isEditing:false
   })
   const [lists , setLists ] = useState([])
+  const newdate = (input)=>{
+    var p = input.split(/\D/g)
+  return [p[2],p[1],p[0] ].join("/")
+  }
   const submitHandler = () =>{
     const task = data.task;
     if(task.trim() !== ""){
-    const newdate = (input)=>{
-      var p = input.split(/\D/g)
-    return [p[2],p[1],p[0] ].join("/")
-    }
     setLists((lists)=>{
       const updateData = {...data,id:uuidv4(),date:newdate(data.date)}
       const updatedList = [...lists,updateData]
@@ -24,8 +25,12 @@ const App = () => {
     }else{
       alert("Please enter valid task")
     }}
-    const editTask = ()=>{
-
+    const editTask = (list)=>{
+        console.log(list)
+        setLists(lists.map(task=>task.id ===list.id?task={...list,isEditing:!task.isEditing,date:newdate(list.date)}:task))
+    }
+    const editTodo = (id)=>{
+        setLists(lists.map(list=>list.id === id?{...list,isEditing:!list.isEditing}:list))
     }
     const DeleteTask = (id)=>{
       setLists(lists.filter(list=>list.id !== id))
@@ -33,20 +38,21 @@ const App = () => {
     const removeAll = ()=>{
       setLists([])
     }
-    const displayList = lists.map(list =>
-    <Todo key={list.id} list={list} editTask = {editTask} DeleteTask={DeleteTask}/>
-  )
+    const displayList = lists.map((list) =>(
+      (list.isEditing)?<EditTodo key={list.id} editTask={editTask} list ={list}/>:
+          <Todo key={list.id} list={list} editTask = {editTask} DeleteTask={DeleteTask} editTodo={editTodo}/>
+    ))
   return (
     <div  className='flex flex-col items-center justify-center justify-items-start bg-indigo-900 h-[100vh]'>
       <div className='flex flex-row justify-between items-center content-between'>
-        <div className='text-white text-3xl font-bold'>To-Do List</div>
+        <div className='text-white text-5xl font-bold'>To-Do List</div>
       </div>
       <div className='static min-w-[50vw] max-w-[60vw] min-h-[50vh] max-h-[60vh] overflow-y-scroll bg-slate-800 p-3 rounded m-3'>
         <div className='sticky grid grid-cols-9  border-b-2 mb-3 pb-2 justify-items-start '>
           <div className='col-span-1'></div>
-          <div className='col-span-4 font-semibold text-xl font-bold text-white'>Tasks</div>  
-          <div className='col-span-1 text-xl font-bold text-white'>Due Date&nbsp;/</div> 
-          <div className='col-span-1 text-xl font-bold text-white'>&nbsp;Time</div>
+          <div className='col-span-4  text-xl font-bold text-white'>Tasks</div>  
+          <div className='col-span-1 text-xl font-semibold text-white'>Due Date&nbsp;/</div> 
+          <div className='col-span-1 text-xl font-semibold text-white'>&nbsp;Time</div>
           <div className='col-span-1 bg-blue-500 hover:bg-blue-700 text-white px-4 py-1 rounded font-semibold'><button onClick={removeAll}>Remove&nbsp;All</button></div>
         </div>
         {displayList}
