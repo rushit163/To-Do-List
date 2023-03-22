@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import EditTodo from './component/editTodo';
 import Todo from './component/Todo';
-
+import Delete from './Images/delete.png'
 const App = () => {
   const [data,setData] = useState({
     task:'',date:'',time:'',id:0,completed:false,isEditing:false
@@ -43,27 +43,21 @@ const App = () => {
           <Todo key={list.id} list={list} editTask = {editTask} DeleteTask={DeleteTask} editTodo={editTodo}/>
     ))
   return (
-    <div  className='flex flex-col items-center justify-center justify-items-start bg-indigo-900 h-[100vh]'>
-      <div className='flex flex-row justify-between items-center content-between'>
+    <div  className='flex flex-col items-center justify-center bg-indigo-900 h-[100vh]'>
+      <div className='w-[100vw] lg:w-[70vw] flex flex-row justify-around items-center content-between'>
         <div className='text-white text-5xl font-bold'>To-Do List</div>
+        <button onClick={removeAll} className='ml-7 pl-7'><img src={Delete} alt=' Logo' className='w-7 h-7 lg:w-9 lg:h-9'/></button>
       </div>
-      <div className='static min-w-[50vw] max-w-[60vw] min-h-[50vh] max-h-[60vh] overflow-y-scroll bg-slate-800 p-3 rounded m-3'>
-        <div className='sticky grid grid-cols-9  border-b-2 mb-3 pb-2 justify-items-start '>
-          <div className='col-span-1'></div>
-          <div className='col-span-4  text-xl font-bold text-white'>Tasks</div>  
-          <div className='col-span-1 text-xl font-semibold text-white'>Due Date&nbsp;/</div> 
-          <div className='col-span-1 text-xl font-semibold text-white'>&nbsp;Time</div>
-          <div className='col-span-1 bg-blue-500 hover:bg-blue-700 text-white px-4 py-1 rounded font-semibold'><button onClick={removeAll}>Remove&nbsp;All</button></div>
-        </div>
+      <div className='w-[95vw] lg:w-[70vw] min-h-[50vh] max-h-[60vh] overflow-y-scroll bg-slate-800 p-3 rounded my-3'>
         {displayList}
       </div>
-      <div className='min-w-[50vw] max-w-[60vw]  bg-slate-800 p-3 rounded'>
+      <div className='flex flex-col lg:flex-row min-w-[50vw] max-w-[100vw]  bg-slate-800 p-3 rounded'>
         <label htmlFor='task' className='text-xl text-white'>Task:</label>
-        <input type='text' name = 'task' id='task' onChange={(e)=>{setData({...data,task : e.target.value})}} value={data.task} className='bg-slate-200 rounded px-5 py-3 mx-3' required></input>
+        <input type='text' name = 'task' id='task' onChange={(e)=>{setData({...data,task : e.target.value})}} value={data.task} className='bg-slate-200 rounded px-5 py-3 lg:mx-3' required></input>
         <label htmlFor='Date' className='text-xl text-white'>Deadline:</label>
-        <input type='date' id='date' name='date' onChange={(e)=>{setData({...data,date :e.target.value})}} value={data.date} className='bg-slate-200 px-5 py-3 ml-3'></input>
-        <input type='time' name = 'task' id='task' onChange={(e)=>{setData({...data,time : e.target.value})}} value={data.time} className='bg-slate-200 px-5 py-3 mr-3'></input>
-        <button type='Submit' onClick={submitHandler} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Submit</button>
+        <input type='date' id='date' name='date' onChange={(e)=>{setData({...data,date :e.target.value})}} value={data.date} className='bg-slate-200 px-5 py-3 lg:ml-3'></input>
+        <input type='time' name = 'task' id='task' onChange={(e)=>{setData({...data,time : e.target.value})}} value={data.time} className='bg-slate-200 px-5 py-3 lg:mr-3'></input>
+        <button type='Submit' onClick={submitHandler} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 lg:mt-0 mt-2  rounded'>Submit</button>
       </div>
     </div>
   )
