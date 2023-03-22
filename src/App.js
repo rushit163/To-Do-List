@@ -27,8 +27,11 @@ const App = () => {
     const editTask = ()=>{
 
     }
-    const DeleteTask = ()=>{
-
+    const DeleteTask = (id)=>{
+      setLists(lists.filter(list=>list.id !== id))
+    }
+    const removeAll = ()=>{
+      setLists([])
     }
     const displayList = lists.map(list =>
     <Todo key={list.id} list={list} editTask = {editTask} DeleteTask={DeleteTask}/>
@@ -39,12 +42,12 @@ const App = () => {
         <div className='text-white text-3xl font-bold'>To-Do List</div>
       </div>
       <div className='static min-w-[50vw] max-w-[60vw] min-h-[50vh] max-h-[60vh] overflow-y-scroll bg-slate-800 p-3 rounded m-3'>
-        <div className='sticky grid grid-cols-9  border-b-2 mb-3 py-3'>
+        <div className='sticky grid grid-cols-9  border-b-2 mb-3 pb-2 justify-items-start '>
           <div className='col-span-1'></div>
           <div className='col-span-4 font-semibold text-xl font-bold text-white'>Tasks</div>  
           <div className='col-span-1 text-xl font-bold text-white'>Due Date&nbsp;/</div> 
           <div className='col-span-1 text-xl font-bold text-white'>&nbsp;Time</div>
-          <div className='col-span-1 bg-blue-500 hover:bg-blue-700 text-white px-4 rounded font-semibold'><button>Remove All</button></div>
+          <div className='col-span-1 bg-blue-500 hover:bg-blue-700 text-white px-4 py-1 rounded font-semibold'><button onClick={removeAll}>Remove&nbsp;All</button></div>
         </div>
         {displayList}
       </div>

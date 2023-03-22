@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Todo = ({list}) => {
+const Todo = ({list,editTask,DeleteTask}) => {
     const currentDate = ()=>{
         const date = new Date();
         let day = date.getDate();
@@ -15,7 +15,7 @@ const Todo = ({list}) => {
         <div className='col-span-1'>{list.date === '//' ? ((list.time)? currentDate() : 'No due date'): list.date}</div> 
         <div className='col-span-1'>{list.time}</div>
         <div className='col-span-1'><button className='bg-blue-500 hover:bg-blue-700 text-white font-semibold px-4 rounded'>Edit</button></div>
-        <div className='col-span-1'><button className='bg-blue-500 hover:bg-blue-700 text-white font-semibold px-4 rounded'>Delete</button></div>
+        <div className='col-span-1'><button className='bg-blue-500 hover:bg-blue-700 text-white font-semibold px-4 rounded' onClick={()=>DeleteTask(list.id)}>Delete</button></div>
     </div>
   )
 }
