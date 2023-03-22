@@ -1,14 +1,8 @@
 import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import Todo from './component/Todo';
+
 const App = () => {
-  const currentDate = ()=>{
-      const date = new Date();
-      let day = date.getDate();
-      let month = date.getMonth() + 1;
-      let year = date.getFullYear();
-      return `${day}/${month}/${year}`; 
-  }
   const [data,setData] = useState({
     task:'',date:'',time:'',id:0
   })
@@ -37,21 +31,29 @@ const App = () => {
 
     }
     const displayList = lists.map(list =>
-    <li key={list.id} className='my-3'>
-      {list.task}  {list.date === '//' ? ((list.time)? currentDate() : 'No due date'): list.date}  {list.time}
-      <button onClick={editTask}>Edit</button>
-      <button onClick={DeleteTask}>Delete</button>
-    </li>
+    <Todo key={list.id} list={list} editTask = {editTask} DeleteTask={DeleteTask}/>
   )
   return (
-    <div  className='flex flex-col items-center flex-nowrap justify-center justify-items-start'>
-      <Todo displayList={displayList}/>
-      <div className='block min-h-[50vh]'>
-        <label htmlFor='task' className='text-xl'>Your Task:</label>
+    <div  className='flex flex-col items-center justify-center justify-items-start bg-indigo-900 h-[100vh]'>
+      <div className='flex flex-row justify-between items-center content-between'>
+        <div className='text-white text-3xl font-bold'>To-Do List</div>
+      </div>
+      <div className='static min-w-[50vw] max-w-[60vw] min-h-[50vh] max-h-[60vh] overflow-y-scroll bg-slate-800 p-3 rounded m-3'>
+        <div className='sticky grid grid-cols-9  border-b-2 mb-3 py-3'>
+          <div className='col-span-1'></div>
+          <div className='col-span-4 font-semibold text-xl font-bold text-white'>Tasks</div>  
+          <div className='col-span-1 text-xl font-bold text-white'>Due Date&nbsp;/</div> 
+          <div className='col-span-1 text-xl font-bold text-white'>&nbsp;Time</div>
+          <div className='col-span-1 bg-blue-500 hover:bg-blue-700 text-white px-4 rounded font-semibold'><button>Remove All</button></div>
+        </div>
+        {displayList}
+      </div>
+      <div className='min-w-[50vw] max-w-[60vw]  bg-slate-800 p-3 rounded'>
+        <label htmlFor='task' className='text-xl text-white'>Task:</label>
         <input type='text' name = 'task' id='task' onChange={(e)=>{setData({...data,task : e.target.value})}} value={data.task} className='bg-slate-200 rounded px-5 py-3 mx-3' required></input>
-        <label htmlFor='Date' className='text-xl'>Deadline:</label>
-        <input type='date' id='date' name='date' onChange={(e)=>{setData({...data,date :e.target.value})}} value={data.date} className='bg-slate-200 rounded px-5 py-3 mx-3'></input>
-        <input type='time' name = 'task' id='task' onChange={(e)=>{setData({...data,time : e.target.value})}} value={data.time} className='bg-slate-200 rounded px-5 py-3 mx-3'></input>
+        <label htmlFor='Date' className='text-xl text-white'>Deadline:</label>
+        <input type='date' id='date' name='date' onChange={(e)=>{setData({...data,date :e.target.value})}} value={data.date} className='bg-slate-200 px-5 py-3 ml-3'></input>
+        <input type='time' name = 'task' id='task' onChange={(e)=>{setData({...data,time : e.target.value})}} value={data.time} className='bg-slate-200 px-5 py-3 mr-3'></input>
         <button type='Submit' onClick={submitHandler} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Submit</button>
       </div>
     </div>
