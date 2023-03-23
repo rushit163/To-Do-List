@@ -51,7 +51,7 @@ const App = () => {
       <div className='w-[95vw] lg:w-[70vw] min-h-[50vh] max-h-[60vh] overflow-y-scroll bg-slate-800 p-3 rounded my-3'>
         {displayList}
       </div>
-      <div className='flex flex-col lg:flex-row min-w-[50vw] max-w-[100vw]  bg-slate-800 p-3 rounded'>
+      <div className='flex flex-col lg:justify-center lg:align-center lg:flex-row min-w-[50vw] max-w-[100vw]  bg-slate-800 p-3 rounded'>
         <label htmlFor='task' className='text-xl text-white'>Task:</label>
         <input type='text' name = 'task' id='task' onChange={(e)=>{setData({...data,task : e.target.value})}} value={data.task} className='bg-slate-200 rounded px-5 py-3 lg:mx-3' required></input>
         <label htmlFor='Date' className='text-xl text-white'>Deadline:</label>

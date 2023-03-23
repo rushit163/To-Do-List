@@ -15,9 +15,9 @@ const Todo = ({list,editTask,DeleteTask,editTodo}) => {
 
     
   return (
-    <div key={list.id} className='grid grid-cols-9 lg:grid-cols-9 text-white my-3 mx-2 justify-items-start gap-1'>
+    <div key={list.id} className='grid grid-cols-9 lg:grid-cols-9 text-white my-3 mx-2 justify-items-start gap-1 border-b-2'>
         <input type='checkbox' className="self-start accent-emerald-400 w-5 h-5 mr-2"></input>
-        <div className='col-span-2 lg:col-span-4 lg:text-xl md:text-xl text-md font-semibold'>{list.task}</div>  
+        <div className='block col-span-2 lg:col-span-4 lg:text-xl md:text-xl text-xl font-semibold break-all'>{list.task}</div>  
         <div className='col-span-3 lg:col-span-1 '>{list.date === '//' ? ((list.time)? currentDate() : 'No due date'): list.date}</div> 
         <div className='col-span-1 pr-3'>{list.time}</div>
         <div className='col-span-1 pl-2'><button onClick={()=>editTodo(list.id)}><img src={pen} alt=' Logo' className='w-7 h-7 lg:w-9 lg:h-9'/></button></div>
